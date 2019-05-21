@@ -27,6 +27,8 @@ class Board
     # Board[start_pos] = nil
     x, y = start_pos   
     a, b = end_pos
+    #try it with self[start_pos]
+    #tty it with self[end_pos]
     if rows[x][y] == nil 
       raise "no piece to move" 
     elsif rows[a][b] != nil  
