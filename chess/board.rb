@@ -25,14 +25,18 @@ class Board
 
   def move_piece(start_pos,end_pos)
     # Board[start_pos] = nil
-    debugger
-    if Board.[]([start_pos]) == nil 
+    x, y = start_pos   
+    a, b = end_pos
+    if rows[x][y] == nil 
       raise "no piece to move" 
-    elsif Board[end_pos] != nil  
+    elsif rows[a][b] != nil  
       raise "there is already a piece there" 
     else          
-      Board[end_pos] = Board[start_pos] 
-      Board[start_pos] = nil
+      sta = rows[a][b]
+      ena = rows[x][y]
+      rows[x][y] = nil
+      rows[a][b] = ena 
+      
     end
   end   
  
