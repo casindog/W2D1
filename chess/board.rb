@@ -1,5 +1,9 @@
 require 'byebug'
-class Board 
+require_relative "cursor.rb"
+require_relative 'rook.rb'
+require "colorize"
+
+class Board
   attr_reader :rows
   include Enumerable
   # debugger
@@ -12,6 +16,15 @@ class Board
 
   end 
 
+  def each(&prc)
+    i = 0
+    while i < self.length 
+      prc.call(self[i])
+      i += 1
+    end
+    #self
+  end
+
   def [](pos) #[0,0]
     row, col = pos 
     rows[row][col]
@@ -22,13 +35,20 @@ class Board
     rows[row][col] = value
   end 
   
+  # def valid_pos?(@cursor_pos)
+  #   # begin          
+  #     if @cursor_pos[0] < 0 || @cursor_pos[0] > 7 || @cursor_pos[1] > 7 ||@cursor_pos[1] < 0
+  #       raise "cursor outside of board" 
+  #       return false  
+  #     else         
+  #       return true 
+  #     end        
+  # end 
 
   def move_piece(start_pos,end_pos)
     # Board[start_pos] = nil
     x, y = start_pos   
     a, b = end_pos
-    #try it with self[start_pos]
-    #tty it with self[end_pos]
     if rows[x][y] == nil 
       raise "no piece to move" 
     elsif rows[a][b] != nil  
@@ -45,12 +65,4 @@ class Board
 end    
 
 
-class Piece
-  attr_accessor :color, :board, :pos, :value
-  def initialize(color,board,pos)
-    @color = color
-    @board = board
-    @pos = pos
-  end
-end
 
